@@ -8,7 +8,7 @@ llr = function(x, y, z, omega) {
 compute_f_hat = function(z, x, y, omega) {
   Wz = make_weight_vector(z, x, omega)
   X = make_predictor_matrix(x)
-  Wx <- apply(X, 2, function(x) x * Wz)
+  Wx <- sweep(X, 1, Wz, FUN = "*")
   Wy <- y * Wz
   #f_hat = c(1, z) %*% solve(t(X) %*% Wz %*% X) %*% t(X) %*% Wz %*% y
   f_hat = c(1, z) %*% solve(t(X) %*% Wx) %*% t(X) %*% Wy
